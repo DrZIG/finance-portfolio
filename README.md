@@ -1,2 +1,2 @@
 # finance-portfolio
-This project will help me monitor my brokerage portfolio and get some statistics
+This project will help me monitor my broker portfolio and get some statistics
