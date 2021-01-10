@@ -2,13 +2,15 @@ package drzig.configs;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.ServletException;
+
 /**
  * @author Dr.ZIG
  */
 public class SpringConfigDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[0];
+        return null;
     }
 
     @Override
@@ -19,5 +21,10 @@ public class SpringConfigDispatcherServletInitializer extends AbstractAnnotation
     @Override
     protected String[] getServletMappings() {
         return new String[] {"/"};
+    }
+
+    @Override
+    public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
     }
 }
