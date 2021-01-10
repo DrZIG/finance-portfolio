@@ -14,11 +14,11 @@ public class FinancesController {
 
     @GetMapping()
     public String index(Model model) {
-        return shares(model);
+        return portfolio(model);
     }
 
     @GetMapping("/portfolio")
-    public String portfolio() {
+    public String portfolio(Model model) {
         return "portfolio";
     }
 
