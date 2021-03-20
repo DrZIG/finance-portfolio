@@ -1,9 +1,13 @@
 package drzig.controllers;
 
+import drzig.dao.UserDAO;
+import drzig.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author Dr.ZIG
@@ -11,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/finances")
 public class FinancesController {
+    private final UserDAO userDAO;
+
+    public FinancesController(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @GetMapping()
     public String index(Model model) {
@@ -62,8 +71,22 @@ public class FinancesController {
         return "objects/stocks";
     }
 
-    @GetMapping("users")
-    public String users(Model model) {
-        return "objects/users";
+//    @GetMapping("/users")
+//    public String users(Model model) {
+//        return "objects/users";
+//    }
+
+    @GetMapping("/users/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "control/sign_up";
+    }
+
+    @PostMapping("/users/new")
+    public String sighUp(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "control/sign_up";
+
+        userDAO.add(user);
+        return "redirect:/finances/portfolio";
     }
 }

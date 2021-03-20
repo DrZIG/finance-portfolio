@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+</head>
+<body>
+    <!--/*@thymesVar id="user" type="drzig.models.User"*/-->
+    <form th:action="@{/finances/users/new}" th:method="POST" th:object="${user}">
+        <label for="login">Login: </label>
+        <input th:field="*{login}" type="text" id="login">
+        <div style="color: red" th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login error</div>
+        <br/>
+
+        <label for="email">Email: </label>
+        <input id="email" type="email" th:field="*{email}">
+        <div style="color: red" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email error</div>
+        <br/>
+
+        <label for="password">Password: </label>
+        <input id="password" type="password" th:field="*{password}">
+        <div style="color: red" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password error</div>
+        <input type="submit">
+    </form>
+</body>
+</html>
