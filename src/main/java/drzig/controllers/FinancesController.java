@@ -2,6 +2,7 @@ package drzig.controllers;
 
 import drzig.dao.UserDAO;
 import drzig.models.User;
+import drzig.utils.UserValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,9 +17,11 @@ import javax.validation.Valid;
 @RequestMapping("/finances")
 public class FinancesController {
     private final UserDAO userDAO;
+    private final UserValidator userValidator;
 
-    public FinancesController(UserDAO userDAO) {
+    public FinancesController(UserDAO userDAO, UserValidator userValidator) {
         this.userDAO = userDAO;
+        this.userValidator = userValidator;
     }
 
     @GetMapping()
@@ -83,6 +86,7 @@ public class FinancesController {
 
     @PostMapping("/users/new")
     public String sighUp(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors())
             return "control/sign_up";
 
